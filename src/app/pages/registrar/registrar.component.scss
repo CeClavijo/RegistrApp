@@ -1,0 +1,83 @@
+.registrar-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  height: 100%;
+  background-color: #f2f2f2;
+  padding: 20px;
+}
+
+h1 {
+  color: #172d43;
+  margin-bottom: 20px;
+}
+
+ion-item {
+  --background: #f2f2f2;
+  --color: black;
+  margin-bottom: 10px; /* Espaciado uniforme entre elementos */
+  width: 100%;
+}
+
+ion-input, ion-select {
+  width: 100%;
+}
+
+.error-message {
+  width: 100%;
+  text-align: left;
+  font-size: 14px;
+  margin-bottom: 10px; /* Separación clara entre los campos y mensajes de error */
+}
+
+.error-message p {
+  margin: 0;
+  padding: 0;
+  color: red;
+  text-align: center;
+}
+
+.password-requirements {
+  margin-bottom: 20px;
+  width: 100%;
+}
+
+ion-button {
+  --background: #fbb414;
+  --color: #172d43;
+  width: 100%;
+  margin-top: 20px; /* Espaciado entre botones */
+}
+
+form {
+  width: 100%;
+  max-width: 400px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+.password-requirements {
+  margin-bottom: 10px;
+  width: 100%;
+
+  ion-list {
+    padding: 0;
+    background-color: #f2f2f2;
+  }
+
+  ion-item {
+    --padding-start: 0;
+    margin: 5px 0;
+    --background: transparent;
+  }
+  ion-icon {
+    margin-right: 10px;
+  }
+
+  ion-label {
+    font-size: 14px;
+    line-height: 1.2;
+  }
+}

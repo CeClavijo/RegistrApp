@@ -1,0 +1,25 @@
+<ion-content class="login-content">
+  <div class="login-container">
+    <img src="assets/img/my_app.png" alt="Logo" class="logo" />
+    <form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
+      <ion-item>
+        <ion-select formControlName="tipoUsuario" label="Tipo de usuario" label-placement="floating">
+          <ion-select-option value="Alumno">Alumno</ion-select-option>
+          <ion-select-option value="Profesor">Profesor</ion-select-option>
+        </ion-select>
+      </ion-item>
+      <ion-item>
+        <ion-input formControlName="nombreUsuario" label="Usuario" label-placement="floating" placeholder="Ingresa tu usuario"></ion-input>
+      </ion-item>
+      <ion-item>
+        <ion-input type="password" formControlName="contrasena" label="Contraseña" label-placement="floating" placeholder="Ingresa tu contraseña"></ion-input>
+      </ion-item>
+      <ion-button expand="block" type="submit" class="login-button">
+        INGRESAR
+      </ion-button>
+    </form>
+    <div class="register-link">
+      <a [routerLink]="['/registrar']">Regístrate aquí</a>
+    </div>
+  </div>
+</ion-content>

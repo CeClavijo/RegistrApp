@@ -1,0 +1,22 @@
+.prohibido-content {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  height: 100%;
+}
+
+.prohibido-container {
+  text-align: center;
+}
+
+.logo {
+  margin: 20px 0;
+
+}
+ion-button {
+  padding-top: 20px;
+  --background: #fbb414;
+  --color: #172d43;
+  }
+

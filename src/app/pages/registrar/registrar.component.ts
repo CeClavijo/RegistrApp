@@ -19,6 +19,7 @@ export class RegistrarComponent implements OnInit {
     { text: 'Un carácter especial', met: false }
   ];
   contrasenaTouched: boolean = false;
+  correoRepetido: boolean = false; // Para controlar si el correo ya está registrado
 
   constructor(
     private usuarioService: UsuarioService,
@@ -34,7 +35,12 @@ export class RegistrarComponent implements OnInit {
     });
   }
 
-  ngOnInit() {}
+  ngOnInit() {
+    // Resetear correoRepetido cuando el usuario cambie el valor del campo de email
+    this.registrarForm.get('email')?.valueChanges.subscribe(() => {
+      this.correoRepetido = false;
+    });
+  }
 
   // Validación personalizada de la contraseña
   passwordValidator(control: any) {
@@ -62,13 +68,40 @@ export class RegistrarComponent implements OnInit {
     this.router.navigate(['']);
   }
 
+  // Verificar si el correo ya existe en la API
+  async checkCorreoExistente(email: string) {
+    return new Promise<boolean>((resolve) => {
+      this.usuarioService.getUsuarios().subscribe((usuarios) => {
+        const correoExistente = usuarios.some((usuario: any) => usuario.email.toLowerCase() === email.toLowerCase());
+        resolve(correoExistente);
+      });
+    });
+  }
+
   async onSubmit() {
+    const email = this.registrarForm.value.email.toLowerCase(); // Convertir a minúsculas
+
+    // Verificar si el correo ya está en uso
+    const correoExiste = await this.checkCorreoExistente(email);
+    if (correoExiste) {
+      this.correoRepetido = true;
+      const toast = await this.toastController.create({
+        message: 'El correo ya está en uso.',
+        duration: 2000,
+        position: 'top',
+        color: 'danger'
+      });
+      await toast.present();
+      return;
+    }
+
+    // Si el formulario es válido y el correo no está repetido
     if (this.registrarForm.valid) {
       const usuario = {
         tipo: this.registrarForm.value.tipoUsuario,
         nombreUsuario: this.registrarForm.value.nombreUsuario,
         password: this.registrarForm.value.contrasena,
-        email: this.registrarForm.value.email
+        email: email // Guardar el correo en minúsculas
       };
 
       this.usuarioService.registrarUsuario(usuario).subscribe(
@@ -79,6 +112,7 @@ export class RegistrarComponent implements OnInit {
             position: 'top'
           });
           await toast.present();
+          this.registrarForm.reset(); // Limpiar el formulario tras éxito
         },
         async (error) => {
           const toast = await this.toastController.create({

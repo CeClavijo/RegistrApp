@@ -16,6 +16,6 @@ import { ProhibidoComponent } from './prohibido/prohibido.component';
     PagesPageRoutingModule,
     IonicModule
   ],
-  declarations: [LoginComponent, RegistrarComponent, AlumnoComponent, ProhibidoComponent],
+  declarations: [LoginComponent, RegistrarComponent, AlumnoComponent, ProhibidoComponent, ],
 })
 export class PagesPageModule {}

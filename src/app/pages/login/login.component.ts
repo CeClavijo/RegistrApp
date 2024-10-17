@@ -20,7 +20,7 @@ export class LoginComponent implements OnInit {
   ) {
     this.loginForm = this.formBuilder.group({
       tipoUsuario: ['', Validators.required],
-      nombreUsuario: ['', Validators.required],
+      email: ['', [Validators.required, Validators.email]], // Cambiado a email
       contrasena: ['', Validators.required]
     });
   }
@@ -29,17 +29,19 @@ export class LoginComponent implements OnInit {
 
   async onSubmit() {
     if (this.loginForm.valid) {
-      const { nombreUsuario, contrasena } = this.loginForm.value;
+      const { email, contrasena } = this.loginForm.value;
 
       // Llama a la API para obtener la lista de usuarios
       this.usuarioService.getUsuarios().subscribe(async (usuarios) => {
-        // Busca el usuario que coincida con el nombre de usuario y contraseña
-        const usuario = usuarios.find(u => u.nombreUsuario === nombreUsuario && u.password === contrasena);
+        // Busca el usuario que coincida con el correo y contraseña
+        const usuario = usuarios.find(u => u.email === email && u.password === contrasena); // Cambiado a email
 
         if (usuario) {
-          // Verifica si es un estudiante y redirige
-          if (usuario.tipo === 'estudiante') {
-            this.usuarioService.login(); // Llama al método para marcar al usuario como autenticado
+          // Almacena el usuario autenticado en el servicio
+          this.usuarioService.login(usuario);
+
+          // Verifica el tipo de usuario y redirige
+          if (usuario.tipo === 'Alumno') {
             this.router.navigate(['/alumno']); // Redirige al componente Alumno
           } else {
             const toast = await this.toastController.create({
@@ -66,6 +68,13 @@ export class LoginComponent implements OnInit {
         });
         await toast.present();
       });
+    } else {
+      const toast = await this.toastController.create({
+        message: 'Por favor, completa todos los campos.',
+        duration: 2000,
+        position: 'top'
+      });
+      await toast.present();
     }
   }
 }

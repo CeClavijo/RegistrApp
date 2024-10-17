@@ -8,6 +8,7 @@ import { Observable } from 'rxjs';
 export class UsuarioService {
   private apiUrl = 'https://670832fb8e86a8d9e42e558b.mockapi.io/usuario';
   private loggedIn = false; // Define loggedIn aquí
+  private usuarioActual: any; // Almacena el usuario autenticado
 
   constructor(private http: HttpClient) { }
 
@@ -21,8 +22,15 @@ export class UsuarioService {
     return this.http.post(this.apiUrl, usuario);
   }
 
-  login() {
+  // Método para iniciar sesión
+  login(usuario: any) {
     this.loggedIn = true; // Cambia el estado a autenticado
+    this.usuarioActual = usuario; // Almacena el usuario autenticado
+  }
+
+  // Método para obtener el nombre de usuario del usuario autenticado
+  getNombreUsuario(): string {
+    return this.usuarioActual ? this.usuarioActual.nombreUsuario : ''; // Retorna el nombre de usuario
   }
 
   // Método para verificar si el usuario está autenticado
@@ -33,5 +41,6 @@ export class UsuarioService {
   // Método para cerrar sesión
   logout() {
     this.loggedIn = false; // Cambia el estado a no autenticado
+    this.usuarioActual = null; // Resetea el usuario actual
   }
 }

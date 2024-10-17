@@ -1,3 +1,41 @@
-<p>
-  alumno works!
-</p>
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-img src="assets/img/my_app.png" style="width: 40px; height: 40px;"></ion-img>
+    </ion-buttons>
+    <ion-title>Alumno</ion-title>
+    <ion-buttons slot="end">
+      <ion-button (click)="presentAlert()">
+        <ion-icon name="log-out-outline"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <div class="alumno-container">
+    <h1>Bienvenido {{ nombreUsuario }}</h1>
+    <img src="assets/img/presente.png" alt="Logo" class="logo" />
+
+  <h2>Asistencia</h2>
+    <ion-list>
+      <ion-item *ngFor="let curso of listaAsistencias">
+        <ion-label>
+          <h3>{{ curso.nombre }}</h3>
+          <p>N° de Clases Registradas: {{ curso.totalClases }}</p>
+          <p>Asistencia: {{ curso.asistencias }}</p>
+          <p>Porcentaje de Asistencia: {{ curso.porcentajeAsistencia }}%</p>
+        </ion-label>
+      </ion-item>
+    </ion-list>
+  </div>
+</ion-content>
+
+
+<ion-alert
+  trigger="present-alert"
+  header="¿Desea cerrar su sesión?"
+  [buttons]="alertButtons"
+  (didDismiss)="setResult($event)"
+></ion-alert>
+

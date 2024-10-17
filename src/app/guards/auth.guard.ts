@@ -13,12 +13,12 @@ export class AuthGuard implements CanActivate {
     const isAuthenticated = this.usuarioService.isLoggedIn();
 
     if (!isAuthenticated) {
-      // Redirige a la página de Prohibido si no está autenticado
-      this.router.navigate(['/prohibido']); // Asegúrate de que esta ruta esté configurada
-      return false; // Bloquea la navegación
+
+      this.router.navigate(['']);
+      return false;
     }
 
-    return true; // Permite la navegación
+    return true;
   }
 }
 

@@ -12,7 +12,9 @@ h1 {
   color: #172d43;
   margin-bottom: 20px;
 }
-
+ion-content {
+  --keyboard-offset: 0px !important;
+}
 ion-item {
   --background: #f2f2f2;
   --color: black;

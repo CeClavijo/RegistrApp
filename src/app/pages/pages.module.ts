@@ -7,6 +7,7 @@ import { LoginComponent } from './login/login.component';
 import { RegistrarComponent } from './registrar/registrar.component';
 import { AlumnoComponent } from './alumno/alumno.component';
 import { ProhibidoComponent } from './prohibido/prohibido.component';
+import { ProfesorComponent } from './profesor/profesor.component';
 @NgModule({
   imports: [
     CommonModule,
@@ -16,6 +17,6 @@ import { ProhibidoComponent } from './prohibido/prohibido.component';
     PagesPageRoutingModule,
     IonicModule
   ],
-  declarations: [LoginComponent, RegistrarComponent, AlumnoComponent, ProhibidoComponent, ],
+  declarations: [LoginComponent, RegistrarComponent, AlumnoComponent, ProhibidoComponent, ProfesorComponent],
 })
 export class PagesPageModule {}

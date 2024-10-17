@@ -11,7 +11,7 @@ const routes: Routes = [
   { path: '', component: LoginComponent },
   { path: 'registrar', component: RegistrarComponent },
   { path: 'alumno', component: AlumnoComponent, canActivate: [AuthGuard] },
-  { path: 'profesor', component: ProfesorComponent, canActivate: [AuthGuard] }, // Ruta protegida para profesor
+  { path: 'profesor', component: ProfesorComponent, canActivate: [AuthGuard] },
   { path: 'prohibido', component: ProhibidoComponent }
 ];
 

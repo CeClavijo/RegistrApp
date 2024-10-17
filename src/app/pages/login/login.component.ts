@@ -19,7 +19,7 @@ export class LoginComponent implements OnInit {
     private router: Router
   ) {
     this.loginForm = this.formBuilder.group({
-      tipoUsuario: ['', Validators.required],
+      tipoUsuario: ['', Validators.required], // Se espera 'Alumno' o 'Profesor'
       email: ['', [Validators.required, Validators.email]], // Cambiado a email
       contrasena: ['', Validators.required]
     });
@@ -29,7 +29,7 @@ export class LoginComponent implements OnInit {
 
   async onSubmit() {
     if (this.loginForm.valid) {
-      const { email, contrasena } = this.loginForm.value;
+      const { email, contrasena, tipoUsuario } = this.loginForm.value;
 
       // Llama a la API para obtener la lista de usuarios
       this.usuarioService.getUsuarios().subscribe(async (usuarios) => {
@@ -37,17 +37,24 @@ export class LoginComponent implements OnInit {
         const usuario = usuarios.find(u => u.email === email && u.password === contrasena); // Cambiado a email
 
         if (usuario) {
-          // Almacena el usuario autenticado en el servicio
-          this.usuarioService.login(usuario);
+          // Verifica si el tipo de usuario coincide con el tipo en la base de datos
+          if (usuario.tipo === tipoUsuario) {
+            // Almacena el usuario autenticado en el servicio
+            this.usuarioService.login(usuario);
 
-          // Verifica el tipo de usuario y redirige
-          if (usuario.tipo === 'Alumno') {
-            this.router.navigate(['/alumno']); // Redirige al componente Alumno
+            // Redirige según el tipo de usuario
+            if (usuario.tipo === 'Alumno') {
+              this.router.navigate(['/alumno']); // Redirige al componente Alumno
+            } else if (usuario.tipo === 'Profesor') {
+              this.router.navigate(['/profesor']); // Redirige al componente Profesor
+            }
           } else {
+            // Muestra un mensaje si el tipo no coincide
             const toast = await this.toastController.create({
-              message: 'Acceso permitido solo para alumnos en este momento.',
+              message: 'Tipo de usuario incorrecto.',
               duration: 2000,
-              position: 'top'
+              position: 'top',
+              color: 'danger'
             });
             await toast.present();
           }
@@ -55,7 +62,8 @@ export class LoginComponent implements OnInit {
           const toast = await this.toastController.create({
             message: 'Usuario no registrado o contraseña incorrecta.',
             duration: 2000,
-            position: 'top'
+            position: 'top',
+            color: 'danger'
           });
           await toast.present();
         }
@@ -64,7 +72,8 @@ export class LoginComponent implements OnInit {
         const toast = await this.toastController.create({
           message: 'Error al obtener usuarios.',
           duration: 2000,
-          position: 'top'
+          position: 'top',
+          color: 'danger'
         });
         await toast.present();
       });
@@ -72,7 +81,8 @@ export class LoginComponent implements OnInit {
       const toast = await this.toastController.create({
         message: 'Por favor, completa todos los campos.',
         duration: 2000,
-        position: 'top'
+        position: 'top',
+        color: 'danger'
       });
       await toast.present();
     }

@@ -109,7 +109,8 @@ export class RegistrarComponent implements OnInit {
           const toast = await this.toastController.create({
             message: 'Usuario registrado exitosamente',
             duration: 2000,
-            position: 'top'
+            position: 'top',
+            color: 'success'
           });
           await toast.present();
           this.registrarForm.reset(); // Limpiar el formulario tras éxito
@@ -118,7 +119,8 @@ export class RegistrarComponent implements OnInit {
           const toast = await this.toastController.create({
             message: 'Error al registrar el usuario',
             duration: 2000,
-            position: 'top'
+            position: 'top',
+            color: 'danger'
           });
           await toast.present();
         }

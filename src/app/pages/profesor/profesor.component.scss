@@ -1,0 +1,47 @@
+.profesor-container {
+  padding: 20px;
+  text-align: center;
+  background-color: #f2f2f2;
+  color:black;
+  height: 100%;
+}
+
+h1 {
+  text-align:left;
+  margin: 20px 0;
+  font-size: 1.5rem;
+}
+ion-list {
+  margin-top: 20px;
+}
+
+ion-item {
+  border-bottom: 1px solid #ccc;
+}
+
+
+
+ion-button.confirm-attendance {
+  background-color: #fbb414;
+  --color: #172d43;
+  --border-color: #fbb414;
+}
+
+ion-item ion-button {
+  background-color: transparent;
+  color: #fbb414;
+  --border-color: #fbb414;
+}
+.asignatura-container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.confirmar-asistencia {
+  --background: #fbb414; // Color de fondo
+  --color: #172d43; // Color del texto
+  --border-radius: 8px; // Puedes ajustar el radio de borde si lo deseas
+}
+ion-button {
+  margin-left: auto;
+}

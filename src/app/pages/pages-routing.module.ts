@@ -5,14 +5,14 @@ import { RegistrarComponent } from './registrar/registrar.component';
 import { AlumnoComponent } from './alumno/alumno.component';
 import { ProfesorComponent } from './profesor/profesor.component'; // Importa tu componente Profesor
 import { AuthGuard } from '../guards/auth.guard';
-import { ProhibidoComponent } from './prohibido/prohibido.component';
+
 
 const routes: Routes = [
   { path: '', component: LoginComponent },
   { path: 'registrar', component: RegistrarComponent },
   { path: 'alumno', component: AlumnoComponent, canActivate: [AuthGuard] },
   { path: 'profesor', component: ProfesorComponent, canActivate: [AuthGuard] },
-  { path: 'prohibido', component: ProhibidoComponent }
+  { path: '**', redirectTo: '', pathMatch: 'full' }
 ];
 
 @NgModule({

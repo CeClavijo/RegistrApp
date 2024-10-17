@@ -43,4 +43,8 @@ export class UsuarioService {
     this.loggedIn = false; // Cambia el estado a no autenticado
     this.usuarioActual = null; // Resetea el usuario actual
   }
+  // usuario.service.ts
+getUsuarioActual(): any {
+  return this.usuarioActual; // Retorna el usuario actual
+}
 }

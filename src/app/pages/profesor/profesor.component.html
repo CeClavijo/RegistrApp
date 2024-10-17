@@ -13,12 +13,33 @@
 </ion-header>
 
 <ion-content>
-  <!-- Aquí puedes agregar más contenido del componente profesor -->
+  <div class="profesor-container">
+    <h1>Bienvenido {{ usuario }}</h1>
+  <div class="mx-auto text-center" *ngIf="showQRCode">
+    <h2>Código QR</h2>
+    <h3>{{ qrData }}</h3>
+    <canvas #qrCanvas></canvas>
+    <!-- Botón para confirmar asistencia -->
+    <ion-button expand="full"
+    class="confirmar-asistencia" (click)="presentConfirmAttendanceAlert()">CONFIRMAR ASISTENCIA</ion-button>
+  </div>
+
+  <ion-list>
+    <ion-item *ngFor="let asignatura of asignaturas">
+      <div class="asignatura-container">
+        <div class="asignatura-nombre">
+          {{ asignatura.nombre }} - {{ asignatura.id }}
+        </div>
+      </div>
+      <ion-button fill="outline" (click)="generarQR(asignatura.id)">Generar QR</ion-button>
+    </ion-item>
+  </ion-list>
+</div>
 </ion-content>
 
-<!-- Alerta -->
+<!-- Alerta de cierre de sesión -->
 <ion-alert
   [buttons]="alertButtons"
-  header="Desea cerrar su sesión"
+  header="¿Desea cerrar su sesión?"
   (didDismiss)="setResult($event)"
 ></ion-alert>
